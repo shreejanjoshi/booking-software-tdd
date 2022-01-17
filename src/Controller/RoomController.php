@@ -78,4 +78,14 @@ class RoomController extends AbstractController
 
         return $this->redirect($this->generateUrl('room.edit'));
     }
+
+    #[Route('/show/{id}', name: 'show')]
+    //now this is parmconvoter $request will be objects{room} and can find -$id -$name
+    public function show(Room $room): Response
+    {
+
+        return $this->render('room/show.html.twig', [
+            'room' => $room
+        ]);
+    }
 }

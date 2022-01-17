@@ -25,7 +25,7 @@
         {% for room in rooms %}
             <tr>
                 <td>{{ room.id }}</td>
-                <td>{{ room.name }}</td>
+                <td><a href="{{ path('room.show', {id: room.id}) }}">{{ room.name }}</a></td>
                 <td>{{ room.onlyForPremiumMembers }}</td>
                 <td><a href="{{ path('room.delete', {id: room.id}) }}">Delete</a></td>
             </tr>
