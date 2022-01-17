@@ -1,6 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    {% for message in app.flashes('success') %}
+    <div class="alert alert-success">
+        <h3>{{ message }}</h3>
+    </div>
+    {% endfor %}
     <br>
     <div class="container">
     <h2>Add Room</h2>
@@ -22,7 +27,7 @@
                 <td>{{ room.id }}</td>
                 <td>{{ room.name }}</td>
                 <td>{{ room.onlyForPremiumMembers }}</td>
-                <td>Delete</td>
+                <td><a href="{{ path('room.delete', {id: room.id}) }}">Delete</a></td>
             </tr>
         {% endfor %}
         </tbody>

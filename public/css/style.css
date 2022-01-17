@@ -230,6 +230,11 @@ Header section
 	display: inline-block;
 	padding: 0;
 	padding: 44px 15px;
+	color: white;
+}
+
+.site-logo h1{
+	color: white;
 }
 
 .header-right {
@@ -1367,6 +1372,10 @@ Artest Page
 .ss-controls .songs-links {
 	padding-top: 0;
 	float: right;
+}
+
+.logo{
+	color: white;
 }
 
 /* ----------------

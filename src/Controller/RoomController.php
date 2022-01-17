@@ -52,4 +52,18 @@ class RoomController extends AbstractController
             'addForm' => $form->createView(),
         ]);
     }
+
+    #[Route('/delete/{id}', name: 'delete')]
+    public function delete($id, ManagerRegistry $doctrine, RoomRepository $roomRepo): Response
+    {
+        $em = $doctrine->getManager();
+        $room = $roomRepo->find($id);
+        $em->remove($room);
+        $em->flush();
+
+        //message
+        $this->addFlash('success', 'Room is delete successfully');
+
+        return $this->redirect($this->generateUrl('room.edit'));
+    }
 }
