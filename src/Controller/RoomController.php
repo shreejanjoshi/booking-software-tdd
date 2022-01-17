@@ -37,6 +37,18 @@ class RoomController extends AbstractController
         if ($form->isSubmitted()){
             //entitymanager
             $em = $doctrine->getManager();
+            //array object
+            $image = $request->files->get('room')['attachment'];
+
+            if ($image){
+                $dataImageName = md5(uniqid('', true)). '.'. $image->guessClientExtension();
+            }
+            $image->move(
+                $this->getParameter('images_folder'),
+                $dataImageName
+            );
+
+            $room->setImage($dataImageName);
             //store
             $em->persist($room);
             //send
@@ -62,7 +74,7 @@ class RoomController extends AbstractController
         $em->flush();
 
         //message
-        $this->addFlash('success', 'Room is delete successfully');
+        $this->addFlash('success', 'Room is deleted successfully');
 
         return $this->redirect($this->generateUrl('room.edit'));
     }
