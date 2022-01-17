@@ -10,7 +10,10 @@
         <tr>
             <td>Room Nr.</td>
             <td>Name</td>
-            <td>Only For Premium Members</td>
+            <td>Only For Premium Members (true / false)</td>
+            <td>Delete</td>
+            <td><a href="{{ path('room.add') }}">Add</a></td>
+
         </tr>
         </thead>
         <tbody>
@@ -19,6 +22,7 @@
                 <td>{{ room.id }}</td>
                 <td>{{ room.name }}</td>
                 <td>{{ room.onlyForPremiumMembers }}</td>
+                <td>Delete</td>
             </tr>
         {% endfor %}
         </tbody>

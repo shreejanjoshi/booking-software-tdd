@@ -3,8 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Room;
+use App\Form\RoomType;
 use App\Repository\RoomRepository;
-use JetBrains\PhpStorm\Pure;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,18 +28,28 @@ class RoomController extends AbstractController
     public function add(ManagerRegistry $doctrine, Request $request): Response
     {
         $room = new Room();
-        $room->setName('one');
-        $room->setOnlyForPremiumMembers('false');
 
-        //entitymanager
-        $em = $doctrine->getManager();
-        //store
-        $em->persist($room);
-        //send
-        $em->flush();
+        //form
+        $form = $this->createForm(RoomType::class, $room);
+        //store transmit data
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()){
+            //entitymanager
+            $em = $doctrine->getManager();
+            //store
+            $em->persist($room);
+            //send
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('room.edit'));
+        }
 
 
         //reponse
-        return new Response("Room has been created");
+        return $this->render('room/add.html.twig', [
+            //create a view from the form
+            'addForm' => $form->createView(),
+        ]);
     }
 }
