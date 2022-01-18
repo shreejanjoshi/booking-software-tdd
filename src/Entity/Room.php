@@ -20,7 +20,13 @@ class Room
     private ?string $onlyForPremiumMembers;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $image;
+    private ?string $image;
+
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
+    private ?bool $onlyPremiumMembers;
+
+    #[ORM\ManyToOne(targetEntity: Bookings::class, inversedBy: 'rooms')]
+    private ?Bookings $booking;
 
     public function getId(): ?int
     {
@@ -59,6 +65,42 @@ class Room
     public function setImage(?string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getOnlyPremiumMembers(): ?bool
+    {
+        return $this->onlyPremiumMembers;
+    }
+
+    public function setOnlyPremiumMembers(bool $onlyPremiumMembers): self
+    {
+        $this->onlyPremiumMembers = $onlyPremiumMembers;
+
+        return $this;
+    }
+
+    public function getBookings(): ?Bookings
+    {
+        return $this->bookings;
+    }
+
+    public function setBookings(?Bookings $bookings): self
+    {
+        $this->bookings = $bookings;
+
+        return $this;
+    }
+
+    public function getBooking(): ?Bookings
+    {
+        return $this->booking;
+    }
+
+    public function setBooking(?Bookings $booking): self
+    {
+        $this->booking = $booking;
 
         return $this;
     }
