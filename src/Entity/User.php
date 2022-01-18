@@ -24,6 +24,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string')]
     private string $password;
 
+    #[ORM\Column(type: 'integer', options: ['default' => 100])]
+    private ?int $credit;
+
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
+    private ?bool $premiumMember;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -106,5 +112,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getCredit(): ?int
+    {
+        return $this->credit;
+    }
+
+    public function setCredit(int $credit): self
+    {
+        $this->credit = $credit;
+
+        return $this;
+    }
+
+    public function getPremiumMember(): ?bool
+    {
+        return $this->premiumMember;
+    }
+
+    public function setPremiumMember(bool $premiumMember): self
+    {
+        $this->premiumMember = $premiumMember;
+
+        return $this;
     }
 }
