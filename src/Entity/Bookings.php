@@ -15,9 +15,6 @@ class Bookings
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'booking')]
-    private ?User $username;
-
     #[ORM\OneToMany(mappedBy: 'booking', targetEntity: Room::class)]
     private ArrayCollection $room;
 
@@ -30,6 +27,9 @@ class Bookings
     #[ORM\OneToMany(mappedBy: 'booking', targetEntity: Room::class)]
     private ArrayCollection $rooms;
 
+    #[ORM\ManyToOne(targetEntity: NewUser::class, inversedBy: 'booking')]
+    private ?NewUser $newUser;
+
     public function __construct()
     {
         $this->room = new ArrayCollection();
@@ -39,18 +39,6 @@ class Bookings
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getUsername(): ?User
-    {
-        return $this->username;
-    }
-
-    public function setUsername(?User $username): self
-    {
-        $this->username = $username;
-
-        return $this;
     }
 
     /**
@@ -115,14 +103,14 @@ class Bookings
         return $this->rooms;
     }
 
-    public function getUser(): ?User
+    public function getNewUser(): ?NewUser
     {
-        return $this->user;
+        return $this->newUser;
     }
 
-    public function setUser(?User $user): self
+    public function setNewUser(?NewUser $newUser): self
     {
-        $this->user = $user;
+        $this->newUser = $newUser;
 
         return $this;
     }
